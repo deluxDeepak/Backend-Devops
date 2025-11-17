@@ -10,10 +10,10 @@
     "test": "test"
   },
   "scripts": {
-    "dev": "NODE_ENV=development nodemon src/server.js",
-    "test": "NODE_ENV=test jest --runInBand",
-    "staging": "NODE_ENV=staging node src/server.js",
-    "start": "NODE_ENV=production node src/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/server.js",
+    "test": "cross-env NODE_ENV=test jest --runInBand",
+    "staging": "cross-env NODE_ENV=staging node src/server.js",
+    "start": "cross-env NODE_ENV=production node src/server.js",
     "pm2:dev": "pm2 start src/server.js --name app-dev --env development",
     "pm2:staging": "pm2 start src/server.js --name app-staging --env staging",
     "pm2:prod": "pm2 start src/server.js --name app-prod --env production",
@@ -25,11 +25,11 @@
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "cross-env": "^10.1.0",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "express-rate-limit": "^8.2.1",
     "helmet": "^8.1.0",
-    "mongoose": "^8.19.4",
     "morgan": "^1.10.1",
     "winston": "^3.18.3"
   },

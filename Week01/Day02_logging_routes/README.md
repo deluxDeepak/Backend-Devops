@@ -39,6 +39,14 @@ Quick start
 4. Start (production):
    - npm start
 
+5. npm install cross-env --save-dev
+  - Give a Universal commad for all system 
+  "dev": "NODE_ENV=development nodemon src/server.js", this will not run in window 
+
+  so write 
+  "dev": "cross-env NODE_ENV=development nodemon src/server.js",
+
+
 Notes
 - Ensure `src/server.js` initializes logging (winston) early so middleware like morgan can pipe or format logs consistently.
 - Consider adding environment files (.env.development, .env.staging) and/or a PM2 ecosystem file (`ecosystem.config.js`) for more advanced deployments.
