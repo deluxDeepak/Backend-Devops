@@ -1,0 +1,34 @@
+{
+  "name": "day02_logging_routes",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon src/server.js",
+    "test": "NODE_ENV=test jest --runInBand",
+    "staging": "NODE_ENV=staging node src/server.js",
+    "start": "NODE_ENV=production node src/server.js",
+    "pm2:dev": "pm2 start src/server.js --name app-dev --env development",
+    "pm2:staging": "pm2 start src/server.js --name app-staging --env staging",
+    "pm2:prod": "pm2 start src/server.js --name app-prod --env production",
+    "pm2:stop": "pm2 stop all",
+    "pm2:delete": "pm2 delete all",
+    "pm2:logs": "pm2 logs --lines 200"
+  },
+  "dependencies": {
+    "compression": "^1.8.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "morgan": "^1.10.1",
+    "winston": "^3.18.3"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "nodemon": "^2.0.22",
+    "pm2": "^5.2.0"
+  }
+}
