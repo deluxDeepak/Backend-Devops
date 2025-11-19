@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@azure/storage-blob": "^12.29.1",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "multer": "^2.0.2"
+  },
+  "name": "day_extra",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
