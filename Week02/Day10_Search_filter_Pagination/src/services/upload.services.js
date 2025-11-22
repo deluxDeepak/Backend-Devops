@@ -5,10 +5,11 @@ const {
 } = require("@azure/storage-blob");
 const ValidationError = require("../error/ValidationError");
 const ApiError = require("../error/ApiError");
+const config = require("../config");
 
-const accountName = process.env.AZURE_STORAGE_NAME;
-const accountKey = process.env.AZURE_STORAGE_KEY;
-const containerName = process.env.AZURE_CONTAINER_NAME;
+const accountName = config.azure.accountName;
+const accountKey = config.azure.accountKey;
+const containerName = config.azure.containerName;
 
 // TODO :Add logging later for better connection 
 console.log("Azura config", {

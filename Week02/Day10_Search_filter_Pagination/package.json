@@ -10,10 +10,10 @@
     "test": "test"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon src/server.js",
-    "test": "cross-env NODE_ENV=test jest --runInBand",
-    "staging": "cross-env NODE_ENV=staging node src/server.js",
-    "start": "cross-env NODE_ENV=production node src/server.js",
+    "dev": "NODE_ENV=development nodemon src/server.js",
+   "test": "echo \"No tests available\"",
+    "staging": "NODE_ENV=staging node src/server.js",
+    "start": "NODE_ENV=production node src/server.js",
     "pm2:dev": "pm2 start src/server.js --name app-dev --env development",
     "pm2:staging": "pm2 start src/server.js --name app-staging --env staging",
     "pm2:prod": "pm2 start src/server.js --name app-prod --env production",

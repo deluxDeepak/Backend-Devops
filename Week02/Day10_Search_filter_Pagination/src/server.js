@@ -7,7 +7,7 @@ const createApp = require('./app');
         const app = await createApp();
         const server = http.createServer(app);
 
-        server.listen(config.app.port, () => {
+        server.listen(config.app.port,"0.0.0.0", () => {
             console.log(`Server is running at port ${config.app.port}`);
         });
 

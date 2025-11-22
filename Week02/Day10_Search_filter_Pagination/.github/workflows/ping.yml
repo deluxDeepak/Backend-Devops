@@ -1,0 +1,14 @@
+name: Keep Azure Backend Awake Awake technique for backend Up
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Azure Backend
+        run: |
+          curl -fsS https://backend-apitest-hvcga6f7bdh9dbc9.centralindia-01.azurewebsites.net/ || echo "Failed"
