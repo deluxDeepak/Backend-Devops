@@ -11,12 +11,13 @@ const createProduct = async (req, res) => {
         if (Array.isArray(req.body)) {
             result = await Product.insertMany(req.body);
         }
+
         // Else single product kara sakte hai 
         else {
             result = await Product.create(req.body);
         }
 
-        // Clear redis cache after insert
+        // Clear redis cache after insert==========
         const keys = await redis.keys("products:*");
         for (const key of keys) await redis.del(key);
 

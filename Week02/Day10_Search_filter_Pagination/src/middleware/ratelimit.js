@@ -2,6 +2,7 @@
 
 const { redis } = require("../databse/redis.db");
 
+
 // ratelimit on route ->login 
 const rateLimit = (limit, windowSec) => {
     return async (req, res, next) => {
@@ -20,7 +21,6 @@ const rateLimit = (limit, windowSec) => {
             });
 
         }
-
         next();
     }
 }

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 // So password won't come inside API response unless we manually include it
 const UserSchema = new mongoose.Schema({
@@ -27,7 +28,7 @@ const UserSchema = new mongoose.Schema({
     refreshToken: {
         type: String,
         default: null,     // optional
-        select: false      
+        select: false
     }
 
 }, { timestamps: true });
@@ -61,6 +62,37 @@ UserSchema.methods.comparePassword = async function (userPassword) {
     return await bcrypt.compare(userPassword, this.password);
 };
 
+
+// Generate refresh token and hash automatically ================
+// --------------------------------------
+// HASHING THE TOKEN for safety
+// --------------------------------------
+UserSchema.methods.setRefreshToken = async function (refreshToken) {
+
+    if (typeof refreshToken != "string") {
+        throw new Error("Reresh token must be a string");
+    }
+    const hasedToken = crypto.createHash("sha256")
+        .update(refreshToken)
+        .digest('hex')
+
+    this.refreshToken = hasedToken
+    return hasedToken;
+}
+
+
+// --------------------------------------------------------------------------
+// createHmac difficult to manage 
+// const { createHmac } = require('node:crypto');
+
+// const secret = 'abcdefg';
+// const hash = createHmac('sha256', secret)
+//     .update('I love cupcakes')
+//     .digest('hex');
+// console.log(hash);
+// Prints:
+//   c0fa1bc00531bd78ef38c628449c5102aeabd49b5dc3a2a516ea6ea959d6658e
+// --------------------------------------------------------------------------
 
 
 const User = mongoose.model("UserDay04", UserSchema);

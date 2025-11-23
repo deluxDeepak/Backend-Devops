@@ -1,36 +1,47 @@
 // middleware/authenticate.js
 
+// Jab routes like logout,profile,changePicture,updateInfo etc 
+
 const config = require("../config");
-const { UnauthorizedError, ValidationError } = require("../error");
+const { UnauthorizedError } = require("../error");
 const jwt = require('jsonwebtoken');
 
-// TODO:Add authenication JWT later 
+
+// Frontend kuch aisa send karta hai logout ke time wahan se hum accesstoken lete hai 
+// fetch("/api/logout", {
+//   method: "GET",
+//   headers: {
+//     "Authorization": `Bearer ${accessToken}`
+//   }
+// });
+
+
+// Authenticate Logout ke time karte hai 
 const authenticate = (req, res, next) => {
     try {
-        console.log("Req.user", req.user);
-        // req.user jo token me decode karke dala hoga wahi ayega isme 
-        // Is se user bar bar get nahi karna parta hai aur authenticated route safe rehta hai 
 
         console.log("Log the headers ", req.headers);
         const authHeader = req.headers.authorization;
-        if (!authHeader || authHeader.startsWith("Bearer")) {
-            return next(new ValidationError("Header is not persent: Token not provided"));
+        if (!authHeader || !authHeader.startsWith("Bearer")) {
+            return next(new UnauthorizedError("Header is not persent: Token not provided"));
         }
 
         const token = authHeader.split(" ")[1];
-        console.log("Token is :", token);
+        console.log("AccessToken from the header logout--->Authencate file is  :", token);
 
-        // Now verify the token ===========
+        // Verify the token ===========
         const decodeToken = jwt.verify(token, config.jwt.acessSecret);
+        console.log("DecodeToken User from authencate.js ", decodeToken);
 
         // Decode token ko user ke sath attach karke bhej dena hai next ke pass
-        console.log("req.user before token", req.user);
-        req.user = decodeToken;
-        console.log("\nreq.user after token", req.user);
-
+        // ====================================================
+        // Request object is expandabale 
+        // ====================================================
+        req.user = decodeToken; //Custome object attach
+        req.hellow = "hellow world  ";
         return next();
     } catch (err) {
-        return next(err);
+        return next(new UnauthorizedError(`Token invalid or Expire ${err} `));
     }
 };
 

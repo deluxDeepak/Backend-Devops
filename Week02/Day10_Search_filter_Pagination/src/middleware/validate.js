@@ -1,28 +1,38 @@
-//====================== Zod validation ===============
-// Remove special characters 
-// Convert types 
-// Ensure only safe data reaches controller 
-
-// Schema hoga ek sabka login register validation/auth.schema.js me hai 
-const { ValidationError } = require("../error")
+const ValidationError = require('../error/ValidationError');
 
 const validate = (schema) => (req, res, next) => {
-    try {
-        const parsed = schema.parse({
-            body: req.body,
-            params: req.params,
-            query: req.query,
-        })
+    if (!schema || typeof schema.safeParse !== 'function') return next();
 
-        req.body = parsed.body;
-        req.params = parsed.params;
-        req.query = parsed.query;
-        next();
+    // Helpful log for debugging
+    console.log('validate', { path: req.path, method: req.method, contentType: req.headers['content-type'] });
 
-    } catch (error) {
-        return next(new ValidationError("validation Error from controller.validate.js", false));
-
+    // If no body parser ran or client didn't send JSON, req.body can be undefined
+    if (req.body === undefined) {
+        return res.status(400).json({
+            success: false,
+            message: "Request body is missing. Ensure you're sending JSON and include header 'Content-Type: application/json'.",
+        });
     }
+
+    const result = schema.safeParse({
+        body: req.body,
+        params: req.params,
+        query: req.query,
+    });
+
+    if (!result.success) {
+        return res.status(400).json({
+            success: false,
+            message: 'Validation failed',
+            errors: result.error.errors,
+        });
+    }
+
+    req.body = result.data.body;
+    req.params = result.data.params;
+    req.query = result.data.query;
+
+    next();
 };
 
-module.exports=validate;
+module.exports = validate;

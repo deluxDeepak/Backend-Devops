@@ -1,7 +1,8 @@
 // Usercontoller--->UserROutes 
 const express = require('express');
-const { getUser} = require('../controller/user.controller');
+const { getUser, getProfile} = require('../controller/user.controller');
 const checkCache = require('../middleware/cacheRedis');
+const { authenticate } = require('../middleware/authenticate');
 
 const router = express.Router();
 
@@ -9,8 +10,11 @@ const router = express.Router();
 // curl http://localhost:3000/api/v2/user/getUser
 router.get("/getUser", getUser);
 
-// // api--->api/v2/user/products 
-// // Using caching here also products route 
-// router.get("/products", checkCache("products"), getProducts);
+
+// When you call /profile or /logout, add header:
+// profile dekhna hai to login karna parega 
+// api--->api/v2/user/profile 
+router.get("/profile",authenticate,getProfile);
+
 
 module.exports = router;

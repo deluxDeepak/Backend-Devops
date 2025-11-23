@@ -14,11 +14,11 @@ const router = express.Router();
 // api --->api/v2/auth/register
 // Signup spam protection by ratelimit karke 
 // rateLimit(3,600) ->3 signup per 10 minute using ip 
-router.get(
+router.post(
     "/register",
-    rateLimit(3, 600),
     validate(registerSchema),
-    register
+    rateLimit(3, 600),
+    register,
 );
 
 // api --->api/v2/auth/login
@@ -33,7 +33,8 @@ router.post(
     login
 );
 
+// When you call /profile or /logout, add header:
 // api --->api/v2/auth/logout
-router.get("/logout", authenticate, logout);
+router.post("/logout", authenticate, logout);
 
 module.exports = router;

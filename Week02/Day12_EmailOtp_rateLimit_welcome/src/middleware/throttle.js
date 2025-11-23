@@ -1,4 +1,4 @@
-// Throttling ->Slow down the reauest 
+// Throttling ->Slow down the request 
 // RateLimiting -> Stop(Block)
 
 const { redis } = require("../databse/redis.db");

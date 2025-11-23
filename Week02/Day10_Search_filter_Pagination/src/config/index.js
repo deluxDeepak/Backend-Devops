@@ -1,9 +1,9 @@
 // Load correct ENV configuartion 
 const dotenv = require('dotenv')
 // Absolute path de do idhar 
-// dotenv.config({ path: "./.env.development" })
+dotenv.config({ path: "./.env.development" })
 // For deployement azure will ignore the upper line 
-dotenv.config();
+// dotenv.config();
 
 // database ->mongo.db.js
 // utils-->jwt.js

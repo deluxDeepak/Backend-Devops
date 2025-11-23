@@ -25,8 +25,6 @@ if (!accountKey || !accountName || !containerName) {
 }
 
 
-
-
 // Create service client using shared key
 const sharedKeyCredential = new StorageSharedKeyCredential(accountName, accountKey);
 

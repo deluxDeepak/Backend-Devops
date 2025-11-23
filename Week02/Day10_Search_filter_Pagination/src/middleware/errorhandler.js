@@ -1,12 +1,14 @@
-// Global Error handler 
+// Global Error handler
 const globalErrorHandler = (err, req, res, next) => {
-    console.log(err);
+    console.error(err);
     const status = err.statusCode || 500;
+    const message = err.message || "Global Error handler: Something went wrong";
+
     res.status(status).json({
         success: false,
-        message: err.meassage || "Global Error handler: Something went wrong",
+        message,
         stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
+    });
+};
 
-    })
-}
 module.exports = globalErrorHandler;
