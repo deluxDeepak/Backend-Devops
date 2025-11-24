@@ -1,0 +1,21 @@
+node_modules/
+
+
+# Env remove 
+.env
+.env.development
+
+
+# Logs Bhi github pe nahi dete hai 
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# Build / coverage
+dist/
+build/
+coverage/
+.nyc_output/
+.cache/

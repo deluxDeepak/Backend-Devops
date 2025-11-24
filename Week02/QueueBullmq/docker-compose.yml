@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+  
+  app:
+    build: .
+    command: node server.js
+    ports:
+      - "3001:3001"
+    depends_on:
+      - redis
+    environment:
+      - HOST=redis
+      - PORT=6379
+  
+  worker:
+    build: .
+    command: node workers/email.worker.js
+    deploy:
+      replicas: 3
+    depends_on:
+      - redis
+    environment:
+      - HOST=redis
+      - PORT=6379
+        - PORT=6379
